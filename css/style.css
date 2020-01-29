@@ -75,7 +75,10 @@ img.thumbnail {
   width: 100%;
   height: 100%;
 }
-.navbar-logo img,
+.navbar-logo {
+  font-size: 1.7rem;
+  color: #779e43;
+}
 .footer-logo img {
   max-height: 1.75rem;
 }
@@ -239,12 +242,6 @@ img.thumbnail {
 }
 .donate:hover .qrcode {
   display: block;
-}
-.donate:first-child:not(:last-child) .qrcode {
-  left: -0.75rem;
-}
-.donate:last-child:not(:first-child) .qrcode {
-  right: -0.75rem;
 }
 @media screen and (max-width: 768px) {
   #toc {

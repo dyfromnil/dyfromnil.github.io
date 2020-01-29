@@ -76,7 +76,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="DY 的博客" height="28">
+                DY&#39;s blogs!
             
             </a>
         </div>
@@ -104,7 +104,7 @@
             <div class="navbar-end">
                 
                     
-                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                    <a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/dyfromnil">
                         
                         <i class="fab fa-github"></i>
                         
@@ -185,7 +185,7 @@
                 <div>
                     
                     <figure class="image is-128x128 has-mb-6">
-                        <img class="is-rounded" src="/images/avatar.jpg" alt="dyfromnil">
+                        <img class="is-rounded" src="/images/my_avatar.svg" alt="dyfromnil">
                     </figure>
                     
                     <p class="is-size-4 is-block">
@@ -255,37 +255,46 @@
         <div class="level is-mobile">
             
             <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Github" href="https://github.com/dyfromnil">
+                title="string" 
+				
+				href="https://github.com/dyfromnil"
+				 
+				 >
                 
                 <i class="fab fa-github"></i>
                 
             </a>
             
             <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Facebook" href="https://facebook.com">
+                title="string" 
+				 
+				
+				onclick="show('/images/wechat_qrcode.png')" 
+				 >
                 
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
+                <i class="fab fa-weixin"></i>
                 
             </a>
             
             <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Dribbble" href="https://dribbble.com">
+                title="string" 
+				 
+				
+				onclick="show('/images/alipay_qrcode.png')" 
+				 >
                 
-                <i class="fab fa-dribbble"></i>
+                <i class="fab fa-qq"></i>
                 
             </a>
             
             <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="RSS" href="/">
+                title="string" 
+				
+				href="mailto:dywechat@163.com"
+				 
+				 >
                 
-                <i class="fas fa-rss"></i>
+                <i class="fa fa-mail-bulk"></i>
                 
             </a>
             
@@ -542,7 +551,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="DY 的博客" height="28">
+                    DY&#39;s blogs!
                 
                 </a>
                 <p class="is-size-7">
@@ -589,6 +598,20 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
 <script>moment.locale("zh-CN");</script>
+
+<script type="text/javascript" src="/js/layer/layer.js"></script>
+<script>
+			function show(path) {
+				  layer.open({
+					type: 1,
+					title: false,
+					skin: '',
+					anim: 0,
+					//area: ['500px'],
+					shadeClose: true,
+					content: '<img src=' + path + '></img> <p style="text-align:center; font-size:15px; color:#68b3de">和我一起讨论技术吧！ ─=≡Σ((( つ•̀ω•́)つ</p>'
+				});}
+</script>
 
 
 <script>

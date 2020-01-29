@@ -194,7 +194,7 @@
         <i class="fab fa-weixin"></i>
     </span>
     <span>微信</span>
-    <div class="qrcode"><img src="/images/wechat_qrcode.png" alt="微信"></div>
+    <div class="qrcode"><img src="/images/wechatPay_qrcode.png" alt="微信"></div>
 </a>
 
                 
@@ -330,7 +330,7 @@
                 title="QQ" 
 				 
 				
-				onclick="show('/images/alipay_qrcode.png')"
+				onclick="show('/images/qq_qrcode.png')"
 				 >
                 
                 <i class="fab fa-qq"></i>
@@ -651,16 +651,33 @@
 
 <script type="text/javascript" src="/js/layer/layer.js"></script>
 <script>
-			function show(path) {
-				  layer.open({
-					type: 1,
-					title: false,
-					skin: '',
-					anim: 0,
-					//area: ['500px'],
-					shadeClose: true,
-					content: '<img src=' + path + '></img> <p style="text-align:center; font-size:15px; color:#68b3de">和我一起讨论技术吧！ ─=≡Σ((( つ•̀ω•́)つ</p>'
-				});}
+function show(path) {
+		getImageWidth(path,function(w,h){
+		layer.open({
+			type: 1,
+			title: false,
+			skin: '',
+			anim: 0,
+			area: [w/1.5+'px', h/1.5+30+'px'],  //area: ['300px', '400px']
+			shadeClose: true,
+			content: '<img src=' + path + '></img> <p style="text-align:center; font-size:15px; color:#68b3de">和我一起讨论技术吧！ ─=≡Σ((( つ•̀ω•́)つ</p>'
+		});
+	});
+}
+			
+function getImageWidth(url,callback) {
+    var img = new Image();
+    img.src = url;
+    // 如果图片被缓存，则直接返回缓存数据
+    if (img.complete) {
+        callback(img.width, img.height);
+    } else {
+        img.onload = function () {
+            callback(img.width, img.height);
+        }
+    }
+}
+
 </script>
 
 

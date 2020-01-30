@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 687 个字)
+                    11 分钟 读完 (大约 1606 个字)
                 </span>
                 
                 
@@ -172,30 +172,119 @@
 </blockquote>
 <hr>
 <h3 id="shadowsocks基本原理"><a href="#shadowsocks基本原理" class="headerlink" title="shadowsocks基本原理"></a><strong>shadowsocks基本原理</strong></h3><p>&emsp;&emsp;shadowsocks可以指一种SOCKS5的加密传输协议，也可以指基于这种加密协议的各种数据传输包。shadowsocks正常工作需要服务器端和客户端两端合作实现，首先，客户端（本机）通过ss（shadowsocks）对正常的访问请求进行SOCK5加密，将加密后的访问请求传输给ss服务器端，服务器端接收到客户端的加密请求后，解密得到原始的访问请求，根据请求内容访问指定的网站（例如Google，YouTube，Facebook，instagram等），得到网站的返回结果后，再利用SOCKS5加密并返回给客户端，客户端通过ss解密后得到正常的访问结果，于是造成了你可以直接访问该网站的“假象”。</p>
-<h3 id="vps服务器的选择"><a href="#vps服务器的选择" class="headerlink" title="vps服务器的选择"></a><strong>vps服务器的选择</strong></h3><p>&emsp;&emsp;服务器的购买推荐<a href="https://www.vultr.com/">Vultr</a>和<a href="https://bwh88.net/">搬瓦工</a>，这两个vps服务商是比较大的厂商，比较稳定（不会跑路喽）。不过近年来国内用的人比较多，所以经常会分配到已经被封的ip（搬瓦工似乎是保证开到的ip绝对可用）。<br>&emsp;&emsp;本指南中搭建shadowsocks/shadowsocksR的shell脚本，适用Vultr的和搬瓦工所有机型（CentOS、Ubuntu、Debian），搭建的ss服务器支持所有客户端类型（iOS，Android，Windows，Mac，Linux）。</p>
+<h3 id="vps服务器的选择"><a href="#vps服务器的选择" class="headerlink" title="vps服务器的选择"></a><strong>vps服务器的选择</strong></h3><p>&emsp;&emsp;服务器的购买推荐<a href="https://www.vultr.com/">Vultr</a>和<a href="https://bwh88.net/">搬瓦工</a>，这两个vps服务商是比较大的厂商，比较稳定（不会跑路喽）。不过近年来国内用的人比较多，所以经常会分配到已经被封的ip（搬瓦工似乎是保证开到的ip绝对可用）。</p>
+<p>&emsp;&emsp;本指南中搭建shadowsocks/shadowsocksR的shell脚本，适用Vultr的和搬瓦工所有机型（CentOS、Ubuntu、Debian），搭建的ss服务器支持所有客户端类型（iOS，Android，Windows，Mac，Linux）。</p>
 <h3 id="脚本搭建SS-SSR服务"><a href="#脚本搭建SS-SSR服务" class="headerlink" title="脚本搭建SS/SSR服务"></a><strong>脚本搭建SS/SSR服务</strong></h3><p>&emsp;&emsp;服务器购买完成后可以通过Xshell,PuTTY等工具，或者直接通过terminal进行ssh连接。这是PuTTY的连接界面： </p>
 <p align="center">
     <img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/PuTTY.png" alt="PuTTY界面" style="width:70%">
 </p>   
-服务器的ip和root登录密码可以在自己vps账户的服务器信息页面查看：
-<br><br>
+
+<p>服务器的ip和root登录密码可以在自己vps账户的服务器信息页面查看：</p>
 <p align="center">
     <img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/Vultr.png" alt="Vultr的vps信息" style="width:50%">
 </p>  
-连接成功:<br><br>
-<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/PuTTY_connected.png" alt="登录成功" style="width:70%"></p>
-连接上服务器后就可以将下面的命令直接复制到命令行中执行了。<br><br>
 
+<p>连接成功:</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/PuTTY_connected.png" alt="登录成功" style="width:50%"></p>
+
+<p>连接上服务器后就可以将下面的命令直接复制到命令行中执行了。</p>
 <p><strong>下面开始搭建SS/SSR服务：</strong><br>&emsp;&emsp;本指南中搭建服务的脚本由<a href="https://github.com/flyzy2005/ss-fly">flyzy</a>所写，由于某些原因，源代码已丢失，现在的这份<a href="https://github.com/dyfromnil/ss-fly">脚本</a>为本人fork而来。</p>
 <blockquote>
 <p><strong>注意：</strong>  shadowsocks和shadowsocksR<span style="color:red">只需要搭建其中一个</span>就行了，具体搭建哪个随便自己。</p>
 </blockquote>
 <ul>
-<li><strong>搭建ShadowSocks(SS)</strong>    </li>
+<li><strong><span id="ss">搭建ShadowSocks(SS)</span></strong></li>
 </ul>
-<p>1.下载ss脚本<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure><br>  </p><p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/download_scripts.png" alt="下载完成"></p><br>  如果提示<code>bash: git: command not found </code><br>2. 运行搭建SS的代码<p></p>
-<p>&emsp;&emsp;  </p>
-<h3 id="开启BBR加速"><a href="#开启BBR加速" class="headerlink" title="开启BBR加速"></a><strong>开启BBR加速</strong></h3>
+<ol>
+<li><p>下载SS脚本（<b>只需要执行一次</b>，卸载SS后也不需要重新执行，卸载不会删除下载的文件）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure>
+ <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/download_scripts.png" alt="下载完成"></p>
+ <p>如果提示 <code><b>bash: git: command not found</b></code> ,则需要先安装git。</p>
+
+<p> Centos执行这个:  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install git</span><br></pre></td></tr></table></figure>
+
+<p> Ubuntu/Debian执行这个: </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get -y install git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行搭建SS的代码  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -i password port</span><br></pre></td></tr></table></figure>
+
+<p> password和port分别改为自己设置的shadowsocks密码和端口号，搭建成功的界面如下：</p>
+ <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ss_success.png" alt="安装成功"></p>
+
+<blockquote>
+<p>注：如果需要改密码或者改端口，只需要重新再执行一次搭建ss脚本代码就可以了，或者修改<code>/etc/shadowsocks.json</code> 这个配置文件。</p>
+</blockquote>
+</li>
+</ol>
+<ol start="3">
+<li>SS相关命令 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">启动：&#x2F;etc&#x2F;init.d&#x2F;ss-fly start</span><br><span class="line">停止：&#x2F;etc&#x2F;init.d&#x2F;ss-fly stop</span><br><span class="line">重启：&#x2F;etc&#x2F;init.d&#x2F;ss-fly restart</span><br><span class="line">状态：&#x2F;etc&#x2F;init.d&#x2F;ss-fly status</span><br><span class="line"></span><br><span class="line">查看ss链接：ss-fly&#x2F;ss-fly.sh -sslink</span><br><span class="line">修改配置文件：vim &#x2F;etc&#x2F;shadowsocks.json</span><br><span class="line"></span><br><span class="line">卸载ss服务：ss-fly&#x2F;ss-fly.sh -uninstall</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><strong>搭建shadowsocksR(SSR)</strong><blockquote>
+<p>注：如果安装了SS，就不需要再安装SSR了，如果要改装SSR，请按照SS的相关命令先卸载SS！！！</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li><p>下载SSR脚本（<b>只需要执行一次</b>，卸载SSR后也不需要重新执行，卸载不会删除下载的文件）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure>
+
+<p> 此步骤与搭建SS一致，可以参考：<a href="#ss">下载SS脚本</a>。</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>运行搭建SSR的代码</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -ssr</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输入相应的参数</p>
+<p> &emsp;&emsp;执行完上述的脚本代码后，会进入到输入参数的界面，包括服务器端口，密码，加密方式，协议，混淆。可以直接输入回车选择默认值，也可以输入相应的值选择对应的选项：</p>
+ <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ssr_choice.png" alt="输入参数" style="width:70%"></p>
+
+<p> 搭建成功的界面如下：</p>
+ <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ssr_success.png" alt="输入参数" style="width:80%"></p>
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>SSR相关命令</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">启动：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks start</span><br><span class="line">停止：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks stop</span><br><span class="line">重启：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks restart</span><br><span class="line">状态：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks status</span><br><span class="line"></span><br><span class="line">配置文件路径：&#x2F;etc&#x2F;shadowsocks.json</span><br><span class="line">日志文件路径：&#x2F;var&#x2F;log&#x2F;shadowsocks.log</span><br><span class="line">代码安装目录：&#x2F;usr&#x2F;local&#x2F;shadowsocks</span><br><span class="line"></span><br><span class="line">卸载SSR服务：.&#x2F;shadowsocksR.sh uninstall</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="加速方案"><a href="#加速方案" class="headerlink" title="加速方案"></a><strong>加速方案</strong></h3><p>目前比较主流的加速方案有：</p>
+<ol>
+<li>锐速</li>
+<li>原版BBR</li>
+<li>魔改BBR</li>
+<li>KCPTUN</li>
+</ol>
+<p>速度：</p>
+<p>KCPTUN &gt; 魔改BBR &gt; 锐速 &gt; 原版BBR</p>
+<p>安装难易度（由易到难）：</p>
+<p>原版BBR &gt; 魔改BBR &gt; 锐速 &gt; KCPTUN</p>
+<ul>
+<li><p><strong>BBR加速</strong></p>
+<p>  &emsp;&emsp;BBR是Google的一套拥塞控制算法，用在VPS服务器上，可以有效减少拥堵丢包，大幅提高网络连接速度.</p>
+<p>  &emsp;&emsp;目前Linux类系统的最新内核，都已内置BBR。而我们购买VPS服务器时安装的系统，一般都不是最新的内核。在CentOS、Debian、Ubuntu等Linux系统上，可以通过升级最新内核的方式，获取BBR。</p>
+<p>  &emsp;&emsp;BBR支持4.9以上的，如果低于这个版本则会自动下载最新内容版本的内核后开启BBR加速并 重启，如果高于4.9以上则自动开启BBR加速，执行如下脚本命令即可自动开启BBR加速：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -bbr</span><br></pre></td></tr></table></figure>
+
+<p>  &emsp;&emsp;装完后需要重启系统，输入y即可立即重启，或者之后输入reboot命令重启(部分系统已开启BBR加速，则无需安装和重启，如Vultr的Ubuntu 18+）。</p>
+<p>  判断BBR加速有没有开启成功：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
+
+<p>  如果返回值为：</p>
+<p>  <code>net.ipv4.tcp_available_congestion_control = bbr cubic reno</code></p>
+<p>  即 = 后面有bbr，则说明已经开启成功了。</p>
+</li>
+<li><p><strong>KCPTUN加速</strong></p>
+</li>
+</ul>
+<h3 id="客户端搭建shadowsocks-shadowsockR代理实现科学上网"><a href="#客户端搭建shadowsocks-shadowsockR代理实现科学上网" class="headerlink" title="客户端搭建shadowsocks/shadowsockR代理实现科学上网"></a><strong>客户端搭建shadowsocks/shadowsockR代理实现科学上网</strong></h3>
         </div>
         
         

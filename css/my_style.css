@@ -1,0 +1,9 @@
+.text-title {
+	text-align: center;
+	font-size: 2rem;
+}
+
+code{
+	color: #000 !important;
+	background:rgba(200,200,200,0.15) !important;
+}

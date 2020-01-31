@@ -144,7 +144,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1606 个字)
+                    14 分钟 读完 (大约 2114 个字)
                 </span>
                 
                 
@@ -272,9 +272,24 @@
 <p>  即 = 后面有bbr，则说明已经开启成功了。</p>
 </li>
 <li><p><strong>KCPTUN加速</strong></p>
+  <p style="color:red">后续补充.....</p>
+
+
+
+
 </li>
 </ul>
-<h3 id="客户端搭建shadowsocks-shadowsockR代理实现科学上网"><a href="#客户端搭建shadowsocks-shadowsockR代理实现科学上网" class="headerlink" title="客户端搭建shadowsocks/shadowsockR代理实现科学上网"></a><strong>客户端搭建shadowsocks/shadowsockR代理实现科学上网</strong></h3>
+<h3 id="客户端搭建shadowsocks-shadowsockR代理"><a href="#客户端搭建shadowsocks-shadowsockR代理" class="headerlink" title="客户端搭建shadowsocks/shadowsockR代理"></a><strong>客户端搭建shadowsocks/shadowsockR代理</strong></h3><p>&emsp;&emsp;各个平台的代理软件都在<a href="https://github.com/shadowsocks">GitHub</a>上，可以根据自己电脑/手机的平台以及服务端所使用的代理类型（SS/SSR）选择相应的版本下载。以Windows的shadowsocks为例,到<a href="https://github.com/shadowsocks/shadowsocks-windows/releases">shadowsocks客户端最新发布版</a>页面（SSR到<a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">shadowsocksR客户端最新发布版</a>），下载压缩包，解压安装（shadowsocks.exe）即可。有兴趣的话可以选择源码安装。</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/source_code.png" alt="安装包" style="width:70%"></p>
+
+<p>安装完成后根据服务器配置，填入相应的配置信息：</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/client_config.png" alt="客户端配置" style="width:70%"></p>
+
+<p>在shadowsocks的windows客户端中，服务器IP指你购买的VPS的IP，服务器端口指你服务器的配置文件中的端口，密码指你服务器的配置文件中的密码，加密指你服务器的配置文件中的加密方式，代理端口默认为1080不需要改动。设置好后，点击添加按钮即可。</p>
+<p>右击任务栏右下角的小飞机图标，可以设置相应的属性项，包括开启自启，显示日志，PAC设置，系统代理模式等等。其中系统代理模式中的全局模式是指所有的请求都走代理（国内以及国外的），而PAC模式则是自动识别，国内的直连，国外的（例如Google，YouTube）走代理。</p>
+<p>如果你的某个特定的网址不能通过PAC模式访问，通常情况下是指如YouTube头像无法加载，或者你某些网站直接无法打开，你可以尝试通过全局模式解决。如果不希望走全局模式，那么可以在Windows客户端中设置PAC，使用本地的PAC，再在规则中加入相应网站即可。</p>
+<p>接下来就可以愉快地科学上网了 ᕕ(ᐛ)ᕗ</p>
+
         </div>
         
         

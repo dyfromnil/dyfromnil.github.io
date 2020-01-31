@@ -395,12 +395,9 @@ img.thumbnail {
 }
 .content code {
   padding: 0;
-  background: transparent;
-}
-.content > code,
-.content :not(pre) > code {
+  background: rgba(200,200,200,0.35);
   font-size: 0.85em;
-  color: #ff3860;
+  color: #000;
 }
 .content blockquote footer strong + cite {
   margin-left: 0.5em;

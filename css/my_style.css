@@ -3,7 +3,6 @@
 	font-size: 2rem;
 }
 
-code{
-	color: #000 !important;
-	background:rgba(200,200,200,0.35) !important;
+.content blockquote{
+	padding: 0.5rem 0.5rem;
 }

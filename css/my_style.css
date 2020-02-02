@@ -6,3 +6,7 @@
 .content blockquote{
 	padding: 0.5rem 0.5rem;
 }
+
+.section .container{
+	margin: auto;
+}

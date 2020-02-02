@@ -6,6 +6,7 @@ html {
 }
 body {
   background-color: #f7f7f7;
+  font-size: 1.3rem;
 }
 body,
 button,
@@ -14,17 +15,17 @@ select,
 textarea {
   font-family: "Ubuntu", "Roboto", "Open Sans", "Microsoft YaHei", sans-serif;
 }
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1400px) {
   .is-1-column .container,
   .is-2-column .container {
     max-width: 960px;
     width: 960px;
   }
 }
-@media screen and (min-width: 1472px) {
+@media screen and (min-width: 1650px) {
   .is-2-column .container {
-    max-width: 1152px;
-    width: 1152px;
+    max-width: 1272px;
+    width: 1272px;
   }
   .is-1-column .container {
     max-width: 960px;
@@ -78,6 +79,7 @@ img.thumbnail {
 .navbar-logo {
   font-size: 1.7rem;
   color: #779e43;
+  margin-right: 3rem;
 }
 .footer-logo img {
   max-height: 1.75rem;

@@ -6,7 +6,6 @@ html {
 }
 body {
   background-color: #f7f7f7;
-  font-size: 1.3rem;
 }
 body,
 button,
@@ -14,6 +13,12 @@ input,
 select,
 textarea {
   font-family: "Ubuntu", "Roboto", "Open Sans", "Microsoft YaHei", sans-serif;
+}
+@media screen and (min-width: 1088px) {
+  .navbar-item {
+    margin-left: 3rem;
+    font-size: 1.3rem;
+  }
 }
 @media screen and (min-width: 1400px) {
   .is-1-column .container,
@@ -79,7 +84,7 @@ img.thumbnail {
 .navbar-logo {
   font-size: 1.7rem;
   color: #779e43;
-  margin-right: 3rem;
+  margin-right: 1rem;
 }
 .footer-logo img {
   max-height: 1.75rem;

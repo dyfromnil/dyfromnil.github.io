@@ -10,16 +10,16 @@
 <title>科学上网-vps配置 - DY 的博客</title>
 
 
-    <meta name="description" content="整理了一份科学上网指南，包括vps服务器的配置，客户端的配置和加速方案。   shadowsocks基本原理&amp;emsp;&amp;emsp;shadowsocks可以指一种SOCKS5的加密传输协议，也可以指基于这种加密协议的各种数据传输包。shadowsocks正常工作需要服务器端和客户端两端合作实现，首先，客户端（本机）通过ss（shadowsocks）对正常的访问请求进行SOCK5加密，将加密后的">
+    <meta name="description" content="整理了一份科学上网指南，包括:  vps服务器的配置 客户端的配置 网络加速方案">
 <meta property="og:type" content="article">
 <meta property="og:title" content="科学上网-vps配置">
 <meta property="og:url" content="http://yoursite.com/2020/01/30/vpn%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="DY 的博客">
-<meta property="og:description" content="整理了一份科学上网指南，包括vps服务器的配置，客户端的配置和加速方案。   shadowsocks基本原理&amp;emsp;&amp;emsp;shadowsocks可以指一种SOCKS5的加密传输协议，也可以指基于这种加密协议的各种数据传输包。shadowsocks正常工作需要服务器端和客户端两端合作实现，首先，客户端（本机）通过ss（shadowsocks）对正常的访问请求进行SOCK5加密，将加密后的">
+<meta property="og:description" content="整理了一份科学上网指南，包括:  vps服务器的配置 客户端的配置 网络加速方案">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2020-01-30T02:06:39.000Z">
-<meta property="article:modified_time" content="2020-02-02T13:56:06.985Z">
+<meta property="article:modified_time" content="2020-02-03T02:26:56.476Z">
 <meta property="article:author" content="dyfromnil">
 <meta property="article:tag" content="vps配置">
 <meta name="twitter:card" content="summary">
@@ -162,9 +162,16 @@
         </h1>
         <div class="content">
             <blockquote>
-<p>整理了一份科学上网指南，包括vps服务器的配置，客户端的配置和加速方案。</p>
+<p>整理了一份科学上网指南，包括:</p>
+<ul>
+<li>vps服务器的配置</li>
+<li>客户端的配置</li>
+<li>网络加速方案</li>
+</ul>
 </blockquote>
 <hr>
+<a id="more"></a>
+
 <h3 id="shadowsocks基本原理"><a href="#shadowsocks基本原理" class="headerlink" title="shadowsocks基本原理"></a><strong>shadowsocks基本原理</strong></h3><p>&emsp;&emsp;shadowsocks可以指一种SOCKS5的加密传输协议，也可以指基于这种加密协议的各种数据传输包。shadowsocks正常工作需要服务器端和客户端两端合作实现，首先，客户端（本机）通过ss（shadowsocks）对正常的访问请求进行SOCK5加密，将加密后的访问请求传输给ss服务器端，服务器端接收到客户端的加密请求后，解密得到原始的访问请求，根据请求内容访问指定的网站（例如Google，YouTube，Facebook，instagram等），得到网站的返回结果后，再利用SOCKS5加密并返回给客户端，客户端通过ss解密后得到正常的访问结果，于是造成了你可以直接访问该网站的“假象”。</p>
 <h3 id="vps服务器的选择"><a href="#vps服务器的选择" class="headerlink" title="vps服务器的选择"></a><strong>vps服务器的选择</strong></h3><p>&emsp;&emsp;服务器的购买推荐<a href="https://www.vultr.com/">Vultr</a>和<a href="https://bwh88.net/">搬瓦工</a>，这两个vps服务商是比较大的厂商，比较稳定（不会跑路喽）。不过近年来国内用的人比较多，所以经常会分配到已经被封的ip（搬瓦工似乎是保证开到的ip绝对可用）。</p>
 <p>&emsp;&emsp;本指南中搭建shadowsocks/shadowsocksR的shell脚本，适用Vultr的和搬瓦工所有机型（CentOS、Ubuntu、Debian），搭建的ss服务器支持所有客户端类型（iOS，Android，Windows，Mac，Linux）。</p>

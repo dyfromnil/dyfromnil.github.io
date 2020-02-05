@@ -10,3 +10,17 @@
 .section .container{
 	margin: auto;
 }
+
+/* div::-webkit-scrollbar{
+	width: 4px;
+}
+
+div::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background: rgba(0,0,0,0.2);
+}
+
+div::-webkit-scrollbar-track {
+	border-radius: 2px;
+	background: rgba(0,0,0,0.1);
+} */

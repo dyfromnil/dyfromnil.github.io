@@ -544,3 +544,23 @@ figure.highlight .section {
 .gist .file {
   all: initial;
 }
+/* ---------------------------------
+ *       Override ScrollBar
+ * --------------------------------- */
+.mCSB_inside > .mCSB_container {
+  margin-right: 3px;
+}
+.mCSB_scrollTools {
+  width: 3px;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: rgba(0,0,0,0.2);
+}
+.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background-color: rgba(0,0,0,0.4);
+  width: 3px;
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+  background-color: rgba(0,0,0,0.1);
+  width: 3px;
+}

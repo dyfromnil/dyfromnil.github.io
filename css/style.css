@@ -23,26 +23,26 @@ textarea {
 @media screen and (min-width: 1280px) {
   .is-1-column .container,
   .is-2-column .container {
-    max-width: 1216px;
-    width: 1216px;
+    max-width: 1152px;
+    width: 1152px;
   }
   .is-3-column .container {
-    max-width: 1216px;
-    width: 1216px;
+    max-width: 1152px;
+    width: 1152px;
   }
 }
 @media screen and (min-width: 1472px) {
   .is-1-column .container {
-    max-width: 1024px;
-    width: 1024px;
+    max-width: 960px;
+    width: 960px;
   }
   .is-2-column .container {
-    max-width: 1408px;
-    width: 1408px;
+    max-width: 1344px;
+    width: 1344px;
   }
   .is-3-column .container {
-    max-width: 1408px;
-    width: 1408px;
+    max-width: 1344px;
+    width: 1344px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -65,13 +65,13 @@ textarea {
   }
 }
 .column {
-  padding: 0.5rem;
+  padding: 0.75rem;
 }
 .tag.is-grey {
   background: #e7e7e7;
 }
 .card {
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
 }
 .card + .card,
@@ -232,6 +232,9 @@ img.thumbnail {
 }
 .article .content a {
   word-wrap: break-word;
+}
+.article-padding {
+  padding: 1.5rem 3rem;
 }
 .rtl {
   direction: rtl;

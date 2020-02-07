@@ -4,23 +4,9 @@
 }
 
 .content blockquote{
-	padding: 0.5rem 0.5rem;
+	padding: 0.75rem 0.75rem;
 }
 
-.section .container{
+/* .section .container{
 	margin: auto;
-}
-
-/* div::-webkit-scrollbar{
-	width: 4px;
-}
-
-div::-webkit-scrollbar-thumb {
-	border-radius: 2px;
-	background: rgba(0,0,0,0.2);
-}
-
-div::-webkit-scrollbar-track {
-	border-radius: 2px;
-	background: rgba(0,0,0,0.1);
 } */

@@ -16,8 +16,7 @@ textarea {
 }
 @media screen and (min-width: 1088px) {
   .navbar-item {
-    margin-left: 3rem;
-    font-size: 1.2rem;
+    margin-right: 3rem;
   }
 }
 @media screen and (min-width: 1280px) {
@@ -63,9 +62,6 @@ textarea {
   .column-right-shadow.is-sticky {
     top: 1.5rem;
   }
-}
-.column {
-  padding: 0.75rem;
 }
 .tag.is-grey {
   background: #e7e7e7;
@@ -127,7 +123,6 @@ img.thumbnail {
 .navbar-main .navbar-item {
   display: flex;
   align-items: center;
-  padding: 1.25rem 0.75rem;
 }
 .navbar-main .navbar-item.is-active {
   color: #3273dc;

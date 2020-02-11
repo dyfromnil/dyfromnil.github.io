@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2020-01-30T02:06:39.000Z">
-<meta property="article:modified_time" content="2020-02-07T16:51:52.575Z">
+<meta property="article:modified_time" content="2020-02-11T12:58:29.111Z">
 <meta property="article:author" content="dyfromnil">
 <meta property="article:tag" content="vps配置">
 <meta name="twitter:card" content="summary">
@@ -153,7 +153,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 分钟 读完 (大约 2114 个字)
+                    27 分钟 读完 (大约 3980 个字)
                 </span>
                 
                 
@@ -177,10 +177,14 @@
 <hr>
 <a id="more"></a>
 
-<h3 id="shadowsocks基本原理"><a href="#shadowsocks基本原理" class="headerlink" title="shadowsocks基本原理"></a><strong>shadowsocks基本原理</strong></h3><p>&emsp;&emsp;shadowsocks可以指一种SOCKS5的加密传输协议，也可以指基于这种加密协议的各种数据传输包。shadowsocks正常工作需要服务器端和客户端两端合作实现，首先，客户端（本机）通过ss（shadowsocks）对正常的访问请求进行SOCK5加密，将加密后的访问请求传输给ss服务器端，服务器端接收到客户端的加密请求后，解密得到原始的访问请求，根据请求内容访问指定的网站（例如Google，YouTube，Facebook，instagram等），得到网站的返回结果后，再利用SOCKS5加密并返回给客户端，客户端通过ss解密后得到正常的访问结果，于是造成了你可以直接访问该网站的“假象”。</p>
-<h3 id="vps服务器的选择"><a href="#vps服务器的选择" class="headerlink" title="vps服务器的选择"></a><strong>vps服务器的选择</strong></h3><p>&emsp;&emsp;服务器的购买推荐<a href="https://www.vultr.com/">Vultr</a>和<a href="https://bwh88.net/">搬瓦工</a>，这两个vps服务商是比较大的厂商，比较稳定（不会跑路喽）。不过近年来国内用的人比较多，所以经常会分配到已经被封的ip（搬瓦工似乎是保证开到的ip绝对可用）。</p>
-<p>&emsp;&emsp;本指南中搭建shadowsocks/shadowsocksR的shell脚本，适用Vultr的和搬瓦工所有机型（CentOS、Ubuntu、Debian），搭建的ss服务器支持所有客户端类型（iOS，Android，Windows，Mac，Linux）。</p>
-<h3 id="脚本搭建SS-SSR服务"><a href="#脚本搭建SS-SSR服务" class="headerlink" title="脚本搭建SS/SSR服务"></a><strong>脚本搭建SS/SSR服务</strong></h3><p>&emsp;&emsp;服务器购买完成后可以通过Xshell,PuTTY等工具，或者直接通过terminal进行ssh连接。这是PuTTY的连接界面： </p>
+<h3 id="shadowsocks基本原理"><a href="#shadowsocks基本原理" class="headerlink" title="shadowsocks基本原理"></a><strong>shadowsocks基本原理</strong></h3><p>shadowsocks可以指一种SOCKS5的加密传输协议，也可以指基于这种加密协议的各种数据传输包。shadowsocks正常工作需要服务器端和客户端两端合作实现，首先，客户端（本机）通过ss（shadowsocks）对正常的访问请求进行SOCK5加密，将加密后的访问请求传输给ss服务器端，服务器端接收到客户端的加密请求后，解密得到原始的访问请求，根据请求内容访问指定的网站（例如Google，YouTube，Facebook，instagram等），得到网站的返回结果后，再利用SOCKS5加密并返回给客户端，客户端通过ss解密后得到正常的访问结果，于是造成了你可以直接访问该网站的“假象”。</p>
+<br>
+
+<h3 id="vps服务器的选择"><a href="#vps服务器的选择" class="headerlink" title="vps服务器的选择"></a><strong>vps服务器的选择</strong></h3><p>服务器的购买推荐<a href="https://www.vultr.com/">Vultr</a>和<a href="https://bwh88.net/">搬瓦工</a>，这两个vps服务商是比较大的厂商，比较稳定（不会跑路喽）。不过近年来国内用的人比较多，所以经常会分配到已经被封的ip（搬瓦工似乎是保证开到的ip绝对可用）。</p>
+<p>本指南中搭建shadowsocks/shadowsocksR的shell脚本，适用Vultr的和搬瓦工所有机型（CentOS、Ubuntu、Debian），搭建的ss服务器支持所有客户端类型（iOS，Android，Windows，Mac，Linux）。</p>
+<br>
+
+<h3 id="脚本搭建SS-SSR服务"><a href="#脚本搭建SS-SSR服务" class="headerlink" title="脚本搭建SS/SSR服务"></a><strong>脚本搭建SS/SSR服务</strong></h3><h4 id="连接vps服务器"><a href="#连接vps服务器" class="headerlink" title="连接vps服务器"></a><strong>连接vps服务器</strong></h4><p>服务器购买完成后可以通过Xshell,PuTTY等工具，或者直接通过terminal进行ssh连接。这是PuTTY的连接界面： </p>
 <p align="center">
     <img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/PuTTY.png" alt="PuTTY界面" style="width:50%">
 </p>   
@@ -193,74 +197,65 @@
 <p>连接成功:</p>
 <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/PuTTY_connected.png" alt="登录成功" style="width:50%"></p>
 
-<p>连接上服务器后就可以将下面的命令直接复制到命令行中执行了。</p>
-<p><em>下面开始搭建SS/SSR服务：</em></p>
-<p>&emsp;&emsp;本指南中搭建服务的脚本由<a href="https://github.com/flyzy2005/ss-fly">flyzy</a>所写，由于某些原因，源代码已丢失，现在的这份<a href="https://github.com/dyfromnil/ss-fly">脚本</a>为本人fork而来。</p>
+<p>连接上服务器后就可以将后续的脚本命令直接复制到命令行中执行了。</p>
 <blockquote>
+<p><strong>声明：</strong>本指南中搭建服务的脚本由<a href="https://github.com/flyzy2005/ss-fly">flyzy</a>所写，源代码（<a href="https://github.com/flyzy2005/ss-fly">https://github.com/flyzy2005/ss-fly</a>）已不可访问，现在的这份<a href="https://github.com/dyfromnil/ss-fly">脚本</a>为本人fork而来。</p>
+</blockquote>
+<br>
+
+<h4 id="搭建ShadowSocks-SS"><a href="#搭建ShadowSocks-SS" class="headerlink" title="搭建ShadowSocks(SS)"></a><strong><span id="ss">搭建ShadowSocks(SS)</span></strong></h4><blockquote>
 <p><strong>注意：</strong>  shadowsocks和shadowsocksR<span style="color:red">只需要搭建其中一个</span>就行了，具体搭建哪个随便自己。</p>
 </blockquote>
-<p><strong><span id="ss">搭建ShadowSocks(SS)</span></strong></p>
-<ol>
-<li><p>下载SS脚本（<b>只需要执行一次</b>，卸载SS后也不需要重新执行，卸载不会删除下载的文件）</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure>
+<p>1.下载SS脚本（<b>只需要执行一次</b>，卸载SS后也不需要重新执行，卸载不会删除下载的文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure>
 
- <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/download_scripts.png" alt="下载完成" style="width:80%"></p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/download_scripts.png" alt="下载完成" style="width:80%"></p>
 
- <p>如果提示 <code><b>bash: git: command not found</b></code> ,则需要先安装git。</p>
+<p>如果提示 `<b>bash: git: command not found</b>` ,则需要先安装git。</p>
 
-<p> Centos执行这个:  </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install git</span><br></pre></td></tr></table></figure>
+<p>Centos执行这个:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install git</span><br></pre></td></tr></table></figure>
 
-<p> Ubuntu/Debian执行这个: </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get -y install git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行搭建SS的代码  </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -i password port</span><br></pre></td></tr></table></figure>
+<p>Ubuntu/Debian执行这个: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get -y install git</span><br></pre></td></tr></table></figure>
 
-<p> password和port分别改为自己设置的shadowsocks密码和端口号，搭建成功的界面如下：</p>
- <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ss_success.png" alt="安装成功" style="width:80%"></p>
+<p>2.运行搭建SS的代码  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -i password port</span><br></pre></td></tr></table></figure>
+
+<p>password和port分别改为自己设置的shadowsocks密码和端口号，搭建成功的界面如下：</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ss_success.png" alt="安装成功" style="width:80%"></p>
 
 <blockquote>
 <p><strong>注</strong>：如果需要改密码或者改端口，只需要重新再执行一次搭建ss脚本代码就可以了，或者修改<code>/etc/shadowsocks.json</code> 这个配置文件。</p>
 </blockquote>
-</li>
-</ol>
-<ol start="3">
-<li>SS相关命令 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">启动：&#x2F;etc&#x2F;init.d&#x2F;ss-fly start</span><br><span class="line">停止：&#x2F;etc&#x2F;init.d&#x2F;ss-fly stop</span><br><span class="line">重启：&#x2F;etc&#x2F;init.d&#x2F;ss-fly restart</span><br><span class="line">状态：&#x2F;etc&#x2F;init.d&#x2F;ss-fly status</span><br><span class="line"></span><br><span class="line">查看ss链接：ss-fly&#x2F;ss-fly.sh -sslink</span><br><span class="line">修改配置文件：vim &#x2F;etc&#x2F;shadowsocks.json</span><br><span class="line"></span><br><span class="line">卸载ss服务：ss-fly&#x2F;ss-fly.sh -uninstall</span><br></pre></td></tr></table></figure>
+<p>3.SS相关命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">启动：&#x2F;etc&#x2F;init.d&#x2F;ss-fly start</span><br><span class="line">停止：&#x2F;etc&#x2F;init.d&#x2F;ss-fly stop</span><br><span class="line">重启：&#x2F;etc&#x2F;init.d&#x2F;ss-fly restart</span><br><span class="line">状态：&#x2F;etc&#x2F;init.d&#x2F;ss-fly status</span><br><span class="line"></span><br><span class="line">查看ss链接：ss-fly&#x2F;ss-fly.sh -sslink</span><br><span class="line">修改配置文件：vim &#x2F;etc&#x2F;shadowsocks.json</span><br><span class="line"></span><br><span class="line">卸载ss服务：ss-fly&#x2F;ss-fly.sh -uninstall</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<p><strong>搭建shadowsocksR(SSR)</strong></p>
-<blockquote>
+<br>
+
+<h4 id="搭建shadowsocksR-SSR"><a href="#搭建shadowsocksR-SSR" class="headerlink" title="搭建shadowsocksR(SSR)"></a><strong>搭建shadowsocksR(SSR)</strong></h4><blockquote>
 <p><strong>注</strong>：如果安装了SS，就不需要再安装SSR了，如果要改装SSR，请按照SS的相关命令先卸载SS！！！</p>
 </blockquote>
-<ol>
-<li><p>下载SSR脚本（<b>只需要执行一次</b>，卸载SSR后也不需要重新执行，卸载不会删除下载的文件）</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure>
+<p>1.下载SSR脚本（<b>只需要执行一次</b>，卸载SSR后也不需要重新执行，卸载不会删除下载的文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;dyfromnil&#x2F;ss-fly</span><br></pre></td></tr></table></figure>
 
-<p> 此步骤与搭建SS一致，可以参考：<a href="#ss">下载SS脚本</a>。</p>
-</li>
-</ol>
-<ol start="2">
-<li><p>运行搭建SSR的代码</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -ssr</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>输入相应的参数</p>
-<p> &emsp;&emsp;执行完上述的脚本代码后，会进入到输入参数的界面，包括服务器端口，密码，加密方式，协议，混淆。可以直接输入回车选择默认值，也可以输入相应的值选择对应的选项：</p>
- <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ssr_choice.png" alt="输入参数" style="width:50%"></p>
+<p>此步骤与搭建SS一致，可以参考：<a href="#ss">下载SS脚本</a>。</p>
+<p>2.运行搭建SSR的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -ssr</span><br></pre></td></tr></table></figure>
 
-<p> 搭建成功的界面如下：</p>
- <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ssr_success.png" alt="输入参数" style="width:60%"></p>
+<p>3.输入相应的参数</p>
+<p>执行完上述的脚本代码后，会进入到输入参数的界面，包括服务器端口，密码，加密方式，协议，混淆。可以直接输入回车选择默认值，也可以输入相应的值选择对应的选项：</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ssr_choice.png" alt="输入参数" style="width:50%"></p>
+
+<p>搭建成功的界面如下：</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/ssr_success.png" alt="输入参数" style="width:60%"></p>
 
 
-</li>
-</ol>
-<ol start="4">
-<li><p>SSR相关命令</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">启动：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks start</span><br><span class="line">停止：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks stop</span><br><span class="line">重启：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks restart</span><br><span class="line">状态：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks status</span><br><span class="line"></span><br><span class="line">配置文件路径：&#x2F;etc&#x2F;shadowsocks.json</span><br><span class="line">日志文件路径：&#x2F;var&#x2F;log&#x2F;shadowsocks.log</span><br><span class="line">代码安装目录：&#x2F;usr&#x2F;local&#x2F;shadowsocks</span><br><span class="line"></span><br><span class="line">卸载SSR服务：.&#x2F;shadowsocksR.sh uninstall</span><br></pre></td></tr></table></figure>
+<p>4.SSR相关命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">启动：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks start</span><br><span class="line">停止：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks stop</span><br><span class="line">重启：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks restart</span><br><span class="line">状态：&#x2F;etc&#x2F;init.d&#x2F;shadowsocks status</span><br><span class="line"></span><br><span class="line">配置文件路径：&#x2F;etc&#x2F;shadowsocks.json</span><br><span class="line">日志文件路径：&#x2F;var&#x2F;log&#x2F;shadowsocks.log</span><br><span class="line">代码安装目录：&#x2F;usr&#x2F;local&#x2F;shadowsocks</span><br><span class="line"></span><br><span class="line">卸载SSR服务：.&#x2F;shadowsocksR.sh uninstall</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
+<br>
+
 <h3 id="加速方案"><a href="#加速方案" class="headerlink" title="加速方案"></a><strong>加速方案</strong></h3><p>目前比较主流的加速方案有：</p>
 <ol>
 <li>锐速</li>
@@ -268,40 +263,97 @@
 <li>魔改BBR</li>
 <li>KCPTUN</li>
 </ol>
-<p>速度：</p>
+<br>
+
+<p>速度比较：</p>
 <p>KCPTUN &gt; 魔改BBR &gt; 锐速 &gt; 原版BBR</p>
 <p>安装难易度（由易到难）：</p>
 <p>原版BBR &gt; 魔改BBR &gt; 锐速 &gt; KCPTUN</p>
-<ul>
-<li><p><strong>BBR加速</strong></p>
-<p>  &emsp;&emsp;BBR是Google的一套拥塞控制算法，用在VPS服务器上，可以有效减少拥堵丢包，大幅提高网络连接速度.</p>
-<p>  &emsp;&emsp;目前Linux类系统的最新内核，都已内置BBR。而我们购买VPS服务器时安装的系统，一般都不是最新的内核。在CentOS、Debian、Ubuntu等Linux系统上，可以通过升级最新内核的方式，获取BBR。</p>
-<p>  &emsp;&emsp;BBR支持4.9以上的，如果低于这个版本则会自动下载最新内容版本的内核后开启BBR加速并 重启，如果高于4.9以上则自动开启BBR加速，执行如下脚本命令即可自动开启BBR加速：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -bbr</span><br></pre></td></tr></table></figure>
+<p>下面介绍原版BBR加速和kcptun加速的配置过程</p>
+<blockquote>
+<p>BBR加速和kcptun加速只要安装其中一个就行了，当然，两者并不冲突，可以同时安装，不过加速效果不叠加。不想麻烦的话直接BBR加速就足够了，对延迟和速度要求高一点并且自己爱折腾的话可以配置kcptun加速。</p>
+</blockquote>
+<br>
 
-<p>  &emsp;&emsp;装完后需要重启系统，输入y即可立即重启，或者之后输入reboot命令重启(部分系统已开启BBR加速，则无需安装和重启，如Vultr的Ubuntu 18+）。</p>
-<p>  判断BBR加速有没有开启成功：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
+<h4 id="BBR加速"><a href="#BBR加速" class="headerlink" title="BBR加速"></a><strong>BBR加速</strong></h4><p>BBR是Google的一套拥塞控制算法，用在VPS服务器上，可以有效减少拥堵丢包，大幅提高网络连接速度。目前Linux类系统的最新内核，都已内置BBR。而我们购买VPS服务器时安装的系统，一般都不是最新的内核。在CentOS、Debian、Ubuntu等Linux系统上，可以通过升级最新内核的方式，获取BBR。</p>
+<p>BBR支持4.9以上的，如果低于这个版本则会自动下载最新内容版本的内核后开启BBR加速并 重启，如果高于4.9以上则自动开启BBR加速，执行如下脚本命令即可自动开启BBR加速：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss-fly&#x2F;ss-fly.sh -bbr</span><br></pre></td></tr></table></figure>
 
-<p>  如果返回值为：</p>
-<p>  <code>net.ipv4.tcp_available_congestion_control = bbr cubic reno</code></p>
-<p>  即 = 后面有bbr，则说明已经开启成功了。</p>
-</li>
-<li><p><strong>KCPTUN加速</strong></p>
-  <p style="color:red">后续补充.....</p>
+<p>装完后需要重启系统，输入y即可立即重启，或者之后输入reboot命令重启(部分系统已开启BBR加速，则无需安装和重启，如Vultr的Ubuntu 18+）。</p>
+<p>判断BBR加速有没有开启成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
 
+<p>如果返回值为：</p>
+<p><code>net.ipv4.tcp_available_congestion_control = bbr cubic reno</code></p>
+<p>即 = 后面有bbr，则说明已经开启成功了。</p>
+<br>
 
+<h4 id="KCPTUN加速"><a href="#KCPTUN加速" class="headerlink" title="KCPTUN加速"></a><strong>KCPTUN加速</strong></h4><p>Kcptun 是一个非常简单和快速的，基于 KCP 协议的 UDP 隧道，它可以将 TCP 流转换为 KCP+UDP 流。而 KCP 是一个快速可靠协议，能以比 TCP 浪费10%-20%的带宽的代价，换取平均延迟降低 30%-40%，且最大延迟降低三倍的传输效果。Kcptun 是 KCP 协议的一个简单应用，可以用于任意 TCP 网络程序的传输承载，以提高网络流畅度，降低掉线情况。由于 Kcptun 使用 Go 语言编写，内存占用低（经测试，在64M内存服务器上稳定运行），而且适用于所有平台，甚至 Arm 平台。</p>
+<blockquote>
+<p>TCP是为流量设计的（每秒内可以传输多少KB的数据），讲究的是充分利用带宽。而 KCP是为流速设计的（单个数据包从一端发送到一端需要多少时间），以10%-20%带宽浪费的代价换取了比 TCP快30%-40%的传输速度。TCP信道是一条流速很慢，但每秒流量很大的大运河，而KCP是水流湍急的小激流。</p>
+</blockquote>
+<p>项目地址:<a href="https://github.com/xtaci/kcptun">https://github.com/xtaci/kcptun</a></p>
+<p>发布版（下载）地址:<a href="https://github.com/xtaci/kcptun/releases">https://github.com/xtaci/kcptun/releases</a></p>
+<br>
 
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/kcptun_principle.png" alt="kcptun原理图" style="width:90%"></p>
 
-</li>
-</ul>
-<h3 id="客户端搭建shadowsocks-shadowsockR代理"><a href="#客户端搭建shadowsocks-shadowsockR代理" class="headerlink" title="客户端搭建shadowsocks/shadowsockR代理"></a><strong>客户端搭建shadowsocks/shadowsockR代理</strong></h3><p>&emsp;&emsp;各个平台的代理软件都在<a href="https://github.com/shadowsocks">GitHub</a>上，可以根据自己电脑/手机的平台以及服务端所使用的代理类型（SS/SSR）选择相应的版本下载。以Windows的shadowsocks为例,到<a href="https://github.com/shadowsocks/shadowsocks-windows/releases">shadowsocks客户端最新发布版</a>页面（SSR到<a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">shadowsocksR客户端最新发布版</a>），下载压缩包，解压安装（shadowsocks.exe）即可。有兴趣的话可以选择源码安装。</p>
+<p>kcptun也分为客户端（KCP Client）和服务器端（KCP Server），两端分别将SS/SSR的TCP转为KCP进行数据传输。所以，使用kcptun加速，本机需要安装SS/SSR和kcptun的客户端，服务器需要安装SS/SSR和kcptun的服务端。</p>
+<p>本机安装两个客户端比较麻烦，并且，iOS目前没有kcp的客户端软件（Android的SS客户端中可以安装kcptun插件，也可以选择单独安装kcptun客户端），因此，另一个可行的办法是添加中间服务器，比如使用阿里云进行转接，即将kcptun的客户端安装在中间服务器上，然后所有的连接端设备都只需要安装SS/SSR客户端，然后连接到中间服务器的kcptun端口上。</p>
+<p><em>具体配置过程如下：</em></p>
+<p>在客户端和服务器端分别下载对应版本的<a href="https://github.com/xtaci/kcptun/releases">压缩包</a>,每个压缩包里包含两个文件，分别为客户端和服务器端文件。版本按照机器的实际情况选择（操作系统，cpu架构）。例如，客户端为Windows、服务端为Linux则分别下载对应的两个版本，解压后客户端保留Windows客户端文件，Windows服务端文件丢弃不用，Linux服务端则保留Linux服务端文件，Linux客户端文件丢弃不用。如果vps服务器为Linux，并且使用阿里云Linux服务器为中间服务器，则直接下载Linux版的压缩包，解压后服务端文件和客户端文件分别放在vps和中间服务器上即可。</p>
+<p>下载可以选择直接点击相应版本的链接下载，解压后上传至服务器，也可用<code>wget</code>命令直接在服务器上下载，然后解压。以Linux-amd-64位版为例，下载命令为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;xtaci&#x2F;kcptun&#x2F;releases&#x2F;download&#x2F;v20200201&#x2F;kcptun-linux-amd64-20200201.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf kcptun-linux-amd64-20200201.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压后有两个文件：<code>client_linux_amd64</code> 和 <code>server_linux_amd64</code> ,分别为客户端和服务端文件（Windows客户端下载Windows版客户端文件）。</p>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/kcptun_tar.png" alt="kcptun压缩包" style="width:40%"></p>
+
+<p>将两个文件分别放在服务器和客户端之后，就可以开始配置并启动服务了，下面以Linux服务器和Linux客户端为例。</p>
+<p><strong>服务端KCP Server：</strong></p>
+<p>执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;server_linux_amd64 -t &quot;TARGET_IP:8080&quot; -l &quot;:29900&quot; -mode fast3 -nocomp -sockbuf 16777217 -dscp 46 &amp;</span><br></pre></td></tr></table></figure>
+
+<p><code>nohup</code> 及最后的 <code>&amp;</code> 表示将服务放到后台运行。参数部分，其中 <code>TARGET_IP</code> 为SS/SSR服务器IP地址，因为kcptun也运行在服务端，所以这里就是本机IP，即 <code>127.0.0.1</code> ,端口8080为SS/SSR服务的端口。本地监听（<code>local listen</code>, <code>-l</code>)端口29900为kcptun服务监听端口（与kcptun客户端服务连接所使用的端口）。   <code>mode</code> 参数为加速模式（fast3, fast2, fast, normal, manual）fast3最快但是也最消耗流量。其他参数详见<a href="https://github.com/xtaci/kcptun">GitHub项目的readme</a>。</p>
+<p>如果嫌命令参数太长，也可以将配置参数写在json文件中，使用 <code>-c</code> 参数（<code>config</code>)直接从文件中读取配置信息。命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;server_linux_amd64 -c server.json &amp;</span><br></pre></td></tr></table></figure>
+
+<p>服务端json配置文件内容如下：</p>
+<figure class="highlight plain"><figcaption><span>&emsp;server.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;listen&quot;: &quot;:29900&quot;,</span><br><span class="line">    &quot;target&quot;: &quot;127.0.0.1:8080&quot;,</span><br><span class="line">    &quot;key&quot;: &quot;kcptun&quot;,</span><br><span class="line">    &quot;crypt&quot;: &quot;none&quot;,</span><br><span class="line">    &quot;mode&quot;: &quot;fast3&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>key</code> 为kcptun客户端和服务端之间的密码，客户端配置文件中的 <code>key</code> 值要与这里保持一致，不填该参数也可以（默认值 <code>default: &quot;it&#39;s a secrect&quot;</code>)。<code>crypt</code> 为加密方式，复杂的加密方式会导致速度变慢，一般默认的 <code>aes</code> 加密就行了，或者直接不加密 <code>none</code> ,因为SS/SSR本身就已经有加密了。</p>
+<p><strong>客户端KCP Client：</strong></p>
+<p>执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;client_linux_amd64 -r &quot;KCP_SERVER_IP:29900&quot; -l &quot;:8080&quot; -mode fast3 -nocomp -autoexpire 900 -sockbuf 16777217 -dscp 46 &amp;</span><br></pre></td></tr></table></figure>
+
+<p>参数部分，其中，<code>KCP_SERVER_IP</code> 为kcptun服务器IP地址，端口29900为kcptun服务器的服务监听端口。本地监听（<code>local listen</code>, <code>-l</code>)端口8080为kcptun服务端监听端口（与SS/SSR客户端连接的端口）。</p>
+<p>同样的，也可以将配置参数写在json文件中，直接从文件中读取配置信息。命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;client_linux_amd64 -c client.json &amp;</span><br></pre></td></tr></table></figure>
+
+<p>客户端json配置文件内容如下：</p>
+<figure class="highlight plain"><figcaption><span>&emsp;client.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;localaddr&quot;: &quot;:8080&quot;,</span><br><span class="line">    &quot;remoteaddr&quot;: &quot;KCP_SERVER_IP:29900&quot;,</span><br><span class="line">    &quot;key&quot;: &quot;kcptun&quot;,</span><br><span class="line">    &quot;crypt&quot;: &quot;none&quot;,</span><br><span class="line">    &quot;mode&quot;: &quot;fast3&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>原始的连接为：<br>Application -&gt; Target Server(8080/tcp)<br>配置完成后整体的代理流程为：<br>Application -&gt; <strong>KCP Client(8080/tcp) -&gt; KCP Server(29900/udp)</strong> -&gt; Target Server(8080/tcp) </p>
+</blockquote>
+<blockquote>
+<p><strong>注：</strong>以上为中间服务器（Linux）的kcptun客户端配置方法，如果直接在本机Windows上安装kcptun客户端，可以使用官方的命令行方式安装（kcptun-windows-386为Windows32位版，kcptun-windows-amd64为Windows64位版），也可以直接使用kcptun的<a href="https://github.com/dfdragon/kcptun_gclient/releases">Windows版图形界面</a>（kcptun_gclientv.1.1.3.zip，非官方），搭配kcptun客户端使用。以Windows64位为例，以上两个压缩包解压后，将client_windows_amd64.exe和kcptun_gclient.exe放在一起方便使用，打开图像化界面，填写相应的配置参数后就可以正常使用了。</p>
+</blockquote>
+<p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/kcptun_gclient.png" alt="kcptun图形化界面配置"></p>
+
+<br>
+
+<h3 id="SS-SSR客户端搭建"><a href="#SS-SSR客户端搭建" class="headerlink" title="SS/SSR客户端搭建"></a><strong>SS/SSR客户端搭建</strong></h3><p>各个平台的代理软件都在<a href="https://github.com/shadowsocks">GitHub</a>上，可以根据自己电脑/手机的平台以及服务端所使用的代理类型（SS/SSR）选择相应的版本下载。以Windows的shadowsocks为例,到<a href="https://github.com/shadowsocks/shadowsocks-windows/releases">shadowsocks客户端最新发布版</a>页面（SSR到<a href="https://github.com/shadowsocksrr/shadowsocksr-csharp/releases">shadowsocksR客户端最新发布版</a>），下载压缩包，解压安装（shadowsocks.exe）即可。</p>
 <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/source_code.png" alt="安装包" style="width:50%"></p>
 
 <p>安装完成后根据服务器配置，填入相应的配置信息：</p>
 <p align="center"><img src="/2020/01/30/vpn%E9%85%8D%E7%BD%AE/client_config.png" alt="客户端配置" style="width:50%"></p>
 
 <p>在shadowsocks的windows客户端中，服务器IP指你购买的VPS的IP，服务器端口指你服务器的配置文件中的端口，密码指你服务器的配置文件中的密码，加密指你服务器的配置文件中的加密方式，代理端口默认为1080不需要改动。设置好后，点击添加按钮即可。</p>
+<blockquote>
+<p><strong>注：</strong>如果加速方式为kcptun，则服务器IP为kcptun客户端IP地址（若客户端安装在本地，则IP地址填127.0.0.1，若客户端安装在中间服务器上，则IP地址填中间服务器IP地址。</p>
+</blockquote>
 <p>右击任务栏右下角的小飞机图标，可以设置相应的属性项，包括开启自启，显示日志，PAC设置，系统代理模式等等。其中系统代理模式中的全局模式是指所有的请求都走代理（国内以及国外的），而PAC模式则是自动识别，国内的直连，国外的（例如Google，YouTube）走代理。</p>
 <p>如果你的某个特定的网址不能通过PAC模式访问，通常情况下是指如YouTube头像无法加载，或者你某些网站直接无法打开，你可以尝试通过全局模式解决。如果不希望走全局模式，那么可以在Windows客户端中设置PAC，使用本地的PAC，再在规则中加入相应网站即可。</p>
 <p>接下来就可以愉快地科学上网了 ᕕ(ᐛ)ᕗ</p>
@@ -385,14 +437,34 @@
         <a class="is-flex" href="#脚本搭建SS-SSR服务">
         <span class="has-mr-6">3</span>
         <span>脚本搭建SS/SSR服务</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#连接vps服务器">
+        <span class="has-mr-6">3.1</span>
+        <span>连接vps服务器</span>
         </a></li><li>
+        <a class="is-flex" href="#搭建ShadowSocks-SS">
+        <span class="has-mr-6">3.2</span>
+        <span>搭建ShadowSocks(SS)</span>
+        </a></li><li>
+        <a class="is-flex" href="#搭建shadowsocksR-SSR">
+        <span class="has-mr-6">3.3</span>
+        <span>搭建shadowsocksR(SSR)</span>
+        </a></li></ul></li><li>
         <a class="is-flex" href="#加速方案">
         <span class="has-mr-6">4</span>
         <span>加速方案</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#BBR加速">
+        <span class="has-mr-6">4.1</span>
+        <span>BBR加速</span>
         </a></li><li>
-        <a class="is-flex" href="#客户端搭建shadowsocks-shadowsockR代理">
+        <a class="is-flex" href="#KCPTUN加速">
+        <span class="has-mr-6">4.2</span>
+        <span>KCPTUN加速</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#SS-SSR客户端搭建">
         <span class="has-mr-6">5</span>
-        <span>客户端搭建shadowsocks/shadowsockR代理</span>
+        <span>SS/SSR客户端搭建</span>
         </a></li></ul>
             </div>
         </div>

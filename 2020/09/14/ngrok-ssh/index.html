@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2020-09-14T07:56:48.000Z">
-<meta property="article:modified_time" content="2020-09-14T08:18:05.556Z">
+<meta property="article:modified_time" content="2020-09-14T08:43:05.411Z">
 <meta property="article:author" content="dyfromnil">
 <meta property="article:tag" content="ngrok">
 <meta property="article:tag" content="ssh">
@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 56 个字)
+                    2 分钟 读完 (大约 367 个字)
                 </span>
                 
                 
@@ -182,6 +182,24 @@
 </ol>
 <hr>
 <h3 id="拉取源码"><a href="#拉取源码" class="headerlink" title="拉取源码"></a><strong>拉取源码</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;inconshreveable&#x2F;ngrok.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据IP地址生成证书"><a href="#根据IP地址生成证书" class="headerlink" title="根据IP地址生成证书"></a><strong>根据IP地址生成证书</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export NGROK_DOMAIN&#x3D;xx.xx.xx.xx #IP地址</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out rootCA.key 2048</span><br><span class="line">openssl req -x509 -new -nodes -key rootCA.key -subj &quot;&#x2F;CN&#x3D;$NGROK_DOMAIN&quot; -days 5000 -out rootCA.pem</span><br><span class="line">openssl genrsa -out device.key 2048</span><br><span class="line">openssl req -new -key device.key -subj &quot;&#x2F;CN&#x3D;$NGROK_DOMAIN&quot; -out device.csr</span><br><span class="line"></span><br><span class="line">#使用IP生成证书需要这步</span><br><span class="line">echo subjectAltName &#x3D; IP:xx.xx.xx.xx &gt; extfile.cnf</span><br><span class="line">#加上 -extfile extfile.cnf</span><br><span class="line">openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000 -extfile extfile.cnf</span><br></pre></td></tr></table></figure>
+
+<h4 id="替换为自己的证书"><a href="#替换为自己的证书" class="headerlink" title="替换为自己的证书"></a>替换为自己的证书</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp rootCA.pem assets&#x2F;client&#x2F;tls&#x2F;ngrokroot.crt</span><br><span class="line">cp device.crt assets&#x2F;server&#x2F;tls&#x2F;snakeoil.crt</span><br><span class="line">cp device.key assets&#x2F;server&#x2F;tls&#x2F;snakeoil.key</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译ngrok服务端和客户端"><a href="#编译ngrok服务端和客户端" class="headerlink" title="编译ngrok服务端和客户端"></a><strong>编译ngrok服务端和客户端</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make release-server</span><br><span class="line">make release-client</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ngrokd为服务端程序<br>ngrok为客户端程序<br>需要分别放到服务端和客户端</p>
+</blockquote>
+<h3 id="启动服务端"><a href="#启动服务端" class="headerlink" title="启动服务端"></a><strong>启动服务端</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;ngrokd -domain&#x3D;NGROK_DOMAIN -httpAddr&#x3D;&quot;:9001&quot; -httpsAddr&#x3D;&quot;:9002&quot; -tunnelAddr&#x3D;&quot;:4443&quot; &gt; ngrok.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>httpAddr为http端口<br>httpsAddr为https端口<br>tunnelAddr为与客户端交互的端口（默认为4443）<br>只配置ssh的话，http和https端口用不上，但是仍然需要设置，否则报错（可随意设置）  </p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h3><h4 id="新建配置文件ngrok-cfg，写入如下内容"><a href="#新建配置文件ngrok-cfg，写入如下内容" class="headerlink" title="新建配置文件ngrok.cfg，写入如下内容"></a>新建配置文件ngrok.cfg，写入如下内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server_addr: &quot;xx.xx.xx.xx:4443&quot;</span><br><span class="line">trust_host_root_cert: false</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动ssh穿透"><a href="#启动ssh穿透" class="headerlink" title="启动ssh穿透"></a>启动ssh穿透</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;ngrok -config&#x3D;ngrok-config --proto&#x3D;tcp 22</span><br></pre></td></tr></table></figure>
+<p>要记录日志则添加 <code>-log=log.log</code> 即可</p>
 
         </div>
         
@@ -272,7 +290,39 @@
         <a class="is-flex" href="#拉取源码">
         <span class="has-mr-6">2</span>
         <span>拉取源码</span>
-        </a></li></ul>
+        </a></li><li>
+        <a class="is-flex" href="#根据IP地址生成证书">
+        <span class="has-mr-6">3</span>
+        <span>根据IP地址生成证书</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#生成证书">
+        <span class="has-mr-6">3.1</span>
+        <span>生成证书</span>
+        </a></li><li>
+        <a class="is-flex" href="#替换为自己的证书">
+        <span class="has-mr-6">3.2</span>
+        <span>替换为自己的证书</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#编译ngrok服务端和客户端">
+        <span class="has-mr-6">4</span>
+        <span>编译ngrok服务端和客户端</span>
+        </a></li><li>
+        <a class="is-flex" href="#启动服务端">
+        <span class="has-mr-6">5</span>
+        <span>启动服务端</span>
+        </a></li><li>
+        <a class="is-flex" href="#客户端">
+        <span class="has-mr-6">6</span>
+        <span>客户端</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#新建配置文件ngrok-cfg，写入如下内容">
+        <span class="has-mr-6">6.1</span>
+        <span>新建配置文件ngrok.cfg，写入如下内容</span>
+        </a></li><li>
+        <a class="is-flex" href="#启动ssh穿透">
+        <span class="has-mr-6">6.2</span>
+        <span>启动ssh穿透</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>

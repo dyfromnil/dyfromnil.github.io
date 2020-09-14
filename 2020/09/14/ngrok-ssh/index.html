@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2020-09-14T07:56:48.000Z">
-<meta property="article:modified_time" content="2020-09-14T09:47:52.227Z">
+<meta property="article:modified_time" content="2020-09-14T11:50:29.576Z">
 <meta property="article:author" content="dyfromnil">
 <meta property="article:tag" content="ngrok">
 <meta property="article:tag" content="ssh">
@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 491 个字)
+                    3 分钟 读完 (大约 493 个字)
                 </span>
                 
                 
@@ -202,7 +202,7 @@
 
 <h3 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a><strong>开机自启动</strong></h3><p>经常需要重启，需要保证重启后自动启动ngrok服务  </p>
 <p>创建<code>/home/apsong/ngrok_config/ngrok.sh</code>文件 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path&#x3D;$(cd &#96;dirname $0&#96;; pwd)</span><br><span class="line">.&#x2F;ngrok -config&#x3D;$path&#x2F;ngrok-config --proto&#x3D;tcp 22 -log&#x3D;$path&#x2F;ngrok.log &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path&#x3D;$(cd &#96;dirname $0&#96;; pwd)</span><br><span class="line">$path&#x2F;ngrok -config&#x3D;$path&#x2F;ngrok.cfg -log&#x3D;$path&#x2F;ngrok.log --proto&#x3D;tcp 22 &amp;</span><br></pre></td></tr></table></figure>
 
 <p>赋予可执行权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x ngrok.sh</span><br></pre></td></tr></table></figure>
@@ -214,7 +214,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
 
 <p>设置开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable ngrok.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable ngrok.service</span><br></pre></td></tr></table></figure>
 
 
         </div>

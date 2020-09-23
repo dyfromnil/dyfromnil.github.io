@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
 <meta property="article:published_time" content="2020-09-14T07:56:48.000Z">
-<meta property="article:modified_time" content="2020-09-14T12:33:47.306Z">
+<meta property="article:modified_time" content="2020-09-23T13:26:45.794Z">
 <meta property="article:author" content="dyfromnil">
 <meta property="article:tag" content="ngrok">
 <meta property="article:tag" content="ssh">
@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 498 个字)
+                    3 分钟 读完 (大约 501 个字)
                 </span>
                 
                 
@@ -196,7 +196,7 @@
 </blockquote>
 <h3 id="启动服务端"><a href="#启动服务端" class="headerlink" title="启动服务端"></a><strong>启动服务端</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;ngrokd -domain&#x3D;NGROK_DOMAIN -httpAddr&#x3D;&quot;:9001&quot; -httpsAddr&#x3D;&quot;:9002&quot; -tunnelAddr&#x3D;&quot;:4443&quot; &gt; ngrok.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <p>httpAddr为http端口<br>httpsAddr为https端口<br>tunnelAddr为与客户端交互的端口（默认为4443）<br>只配置ssh的话，http和https端口用不上，但是仍然需要设置，否则报错（可随意设置）  </p>
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h3><h4 id="新建配置文件ngrok-cfg，写入如下内容"><a href="#新建配置文件ngrok-cfg，写入如下内容" class="headerlink" title="新建配置文件ngrok.cfg，写入如下内容"></a>新建配置文件ngrok.cfg，写入如下内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server_addr: &quot;xx.xx.xx.xx:4443&quot;</span><br><span class="line">trust_host_root_cert: false</span><br><span class="line">tunnels:</span><br><span class="line">  ssh:</span><br><span class="line">    remote_port: 12345</span><br><span class="line">    proto:</span><br><span class="line">      tcp: 22</span><br></pre></td></tr></table></figure>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a><strong>客户端</strong></h3><h4 id="新建配置文件ngrok-cfg，写入如下内容"><a href="#新建配置文件ngrok-cfg，写入如下内容" class="headerlink" title="新建配置文件ngrok.cfg，写入如下内容"></a>新建配置文件ngrok.cfg，写入如下内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server_addr: &quot;xx.xx.xx.xx:4443&quot;</span><br><span class="line">trust_host_root_cert: false</span><br><span class="line">tunnels:</span><br><span class="line">  ssh:</span><br><span class="line">    remote_port: 43185</span><br><span class="line">    proto:</span><br><span class="line">      tcp: 22</span><br></pre></td></tr></table></figure>
 
 <h4 id="启动ssh穿透"><a href="#启动ssh穿透" class="headerlink" title="启动ssh穿透"></a>启动ssh穿透</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;ngrok -log&#x3D;ngrok.log -config&#x3D;ngrok.cfg start ssh</span><br></pre></td></tr></table></figure>
 
@@ -207,8 +207,8 @@
 <p>赋予可执行权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x ngrok.sh</span><br></pre></td></tr></table></figure>
 
-<p>转到<code>/lib/systemd/system</code>目录下，创建 <code>ngrok.service</code> 文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;DY&#39;s ngrok</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">User&#x3D;root</span><br><span class="line">Group&#x3D;root</span><br><span class="line"></span><br><span class="line">Type&#x3D;forking</span><br><span class="line"></span><br><span class="line">ExecStart&#x3D;&#x2F;home&#x2F;apsong&#x2F;ngrok_config&#x2F;ngrok.sh</span><br><span class="line">ExecStop&#x3D;&#x2F;bin&#x2F;kill $MAINPID</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -s HUP $MAINPID</span><br><span class="line">PrivateTmp&#x3D;true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<p>转到<code>/etc/systemd/system</code>目录下，创建 <code>ngrok.service</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;DY&#39;s ngrok</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">User&#x3D;root</span><br><span class="line">Group&#x3D;root</span><br><span class="line"></span><br><span class="line">Type&#x3D;forking</span><br><span class="line"></span><br><span class="line">ExecStart&#x3D;&#x2F;home&#x2F;apsong&#x2F;ngrok_config&#x2F;ngrok.sh</span><br><span class="line">ExecStop&#x3D;&#x2F;bin&#x2F;kill $MAINPID</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -s HUP $MAINPID</span><br><span class="line">PrivateTmp&#x3D;true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 
 <p>重新加载配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
